@@ -1,56 +1,125 @@
-# Job Form Autofill Extension
+# 🚀 Job Form Autofill Extension
 
-A Chrome Extension that automatically fills job application forms using predefined profiles.
+<p align="center">
 
-## Features
+A powerful Chrome Extension that automatically fills job application forms using predefined profiles.
 
-- Multiple Profiles
-  - QA
-  - Business Analyst
-  - Developer
+Supports **QA**, **Business Analyst**, and **Developer** profiles with one click.
 
-- Automatically fills
+![License](https://img.shields.io/badge/License-MIT-green)
+![Manifest](https://img.shields.io/badge/Manifest-V3-blue)
+![Chrome](https://img.shields.io/badge/Chrome-Extension-orange)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)
 
-  - Name
-  - Email
-  - Phone
-  - LinkedIn
-  - GitHub
-  - Portfolio
-  - Country
-  - Experience
-  - Salary
-  - Notice Period
-  - Textareas
-  - Radio Buttons (Supported)
-
-- Manual Resume Upload
-
-- Supports
-
-  - Google Forms
-  - Greenhouse
-  - Lever
-  - Workable (Work in Progress)
+</p>
 
 ---
 
-## Technologies
+# 📸 Screenshots
 
-- JavaScript
-- HTML
-- CSS
-- Chrome Extension Manifest V3
+## Extension Popup
+
+<p align="center">
+<img src="assets/screenshots/popup.png" width="260">
+</p>
 
 ---
 
-## Project Structure
+## Dashboard
+
+<p align="center">
+<img src="assets/screenshots/dashboard.png">
+</p>
+
+---
+
+## Application History
+
+<p align="center">
+<img src="assets/screenshots/history.png">
+</p>
+
+---
+
+# ✨ Features
+
+## 👤 Multiple Profiles
+
+- 💼 Business Analyst
+- 🧪 QA Engineer
+- 💻 Developer
+
+---
+
+## ⚡ One Click Autofill
+
+Automatically fills
+
+- Full Name
+- Email
+- Phone Number
+- LinkedIn
+- GitHub
+- Portfolio
+- Country
+- Experience
+- Current Salary
+- Expected Salary
+- Notice Period
+- Textareas
+- Radio Buttons
+
+---
+
+## 📊 Dashboard
+
+Track every application.
+
+- Total Applications
+- Today's Applications
+- Profile Statistics
+- Charts
+- History
+
+---
+
+## 📄 Manual Resume Upload
+
+Resume upload is intentionally manual so the user always has full control over which CV is submitted.
+
+---
+
+# 🌍 Supported Platforms
+
+✅ Google Forms
+
+🟡 Greenhouse (In Progress)
+
+🟡 Lever (In Progress)
+
+🟡 Workable (In Progress)
+
+---
+
+# 🛠 Tech Stack
+
+- JavaScript (ES6)
+- HTML5
+- CSS3
+- Chrome Extension API
+- Manifest V3
+- LocalStorage
+
+---
+
+# 📂 Project Structure
 
 ```
 JobFormAutofill
 │
 ├── assets
-│   └── resumes
+│   ├── resumes
+│   └── screenshots
 │
 ├── background.js
 ├── content.js
@@ -63,79 +132,124 @@ JobFormAutofill
 ├── profile.js
 ├── radioFiller.js
 ├── router.js
+├── dashboard.html
+├── dashboard.js
+├── dashboard.css
 └── styles.css
 ```
 
 ---
 
-## Installation
+# 🚀 Installation
 
-1. Clone the repository
+Clone the repository
 
-```
+```bash
 git clone https://github.com/YOUR_USERNAME/job-form-autofill-extension.git
 ```
 
-2. Open Chrome
-
-3. Go to
+Open Chrome
 
 ```
 chrome://extensions
 ```
 
-4. Enable
+Enable
 
 ```
 Developer Mode
 ```
 
-5. Click
+Click
 
 ```
-Load Unpacked
+Load unpacked
 ```
 
-6. Select the project folder.
+Select the project folder.
 
 ---
 
-## Usage
+# 🎯 Usage
 
-1. Open any supported job application form.
+1. Open any job application form.
 2. Click the extension.
-3. Select a profile:
-   - QA
-   - Business Analyst
-   - Developer
-4. Click **Autofill**.
+3. Select a profile.
+
+- QA
+- Business Analyst
+- Developer
+
+4. Click
+
+```
+⚡ Scan & Fill
+```
+
 5. Upload your resume manually.
+
 6. Submit the application.
 
 ---
 
-## Current Status
+# ✅ Completed
 
-This project is currently under active development.
-
-### Completed
-
-- Profile Management
-- Field Matching
-- Smart Autofill
+- Multiple Profiles
+- Smart Field Detection
+- Automatic Text Filling
 - Google Forms Support
-- Radio Button Detection
-
-### Planned
-
-- Dropdown Detection
-- Checkbox Detection
-- Resume Upload
-- Multi-step Forms
-- More ATS Support
+- Radio Button Support
+- Dashboard
+- Application History
+- Statistics
+- Export to CSV
+- Search Applications
 
 ---
 
-## License
+# 🚧 Roadmap
 
-MIT
+- Checkbox Support
+- Dropdown Support
+- Greenhouse Support
+- Lever Support
+- Workable Support
+- AI Field Matching
+- Cloud Sync
+- Resume Manager
+- Browser Sync
+
+---
+
+# 📈 Future Plans
+
+- LinkedIn Easy Apply Support
+- Indeed Support
+- Glassdoor Support
+- Workday Support
+- Success Rate Analytics
+- Interview Tracker
+
+---
+
+# 🤝 Contributing
+
+Contributions, feature requests, and suggestions are welcome.
+
+Feel free to fork this repository and submit a Pull Request.
+
+---
+
+# 📜 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+<p align="center">
+
+⭐ If you like this project, consider giving it a star!
+
+Made with ❤️ using JavaScript
+
+</p>
