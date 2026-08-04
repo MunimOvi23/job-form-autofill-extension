@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "Job Form Autofill",
+  "description": "Automatically fills job application forms with tracking and dashboard.",
+  "version": "1.0",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "profile.js",
+        "matcher.js",
+        "filler.js",
+        "router.js",
+        "content.js"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["resumes/*", "dashboard.html", "dashboard.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "icons": {
+    "128": "icons/icon128.png"
+  }
+}

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Job Application Dashboard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      color: #fff;
+      padding: 30px;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .header h1 {
+      font-size: 28px;
+      background: linear-gradient(to right, #f6d365, #fda085);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .close-btn {
+      padding: 8px 18px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+    .close-btn:hover { background: rgba(255,255,255,0.2); }
+
+    /* Stats Cards */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .stat-card .number { font-size: 28px; font-weight: 700; color: #f6d365; }
+    .stat-card .label { font-size: 13px; opacity: 0.7; margin-top: 4px; }
+    .stat-card.today { border-color: rgba(246, 211, 101, 0.3); }
+    .stat-card.today .number { color: #fda085; }
+
+    /* Charts with pure CSS */
+    .charts-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .chart-box {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .chart-box h3 {
+      margin-bottom: 15px;
+      font-size: 16px;
+      opacity: 0.8;
+    }
+    .css-bar-chart {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      height: 200px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    .bar-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 40px;
+    }
+    .bar {
+      width: 30px;
+      min-height: 2px;
+      border-radius: 4px 4px 0 0;
+      transition: height 0.3s;
+      margin-bottom: 5px;
+    }
+    .bar-label {
+      font-size: 11px;
+      opacity: 0.7;
+    }
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 10px;
+      font-size: 12px;
+    }
+    .legend-item { display: flex; align-items: center; gap: 5px; }
+    .legend-color { width: 12px; height: 12px; border-radius: 3px; }
+
+    /* CSS Pie Chart */
+    .pie-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 180px;
+      position: relative;
+    }
+    .pie-chart {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: conic-gradient(
+        #3b82f6 0% var(--ba-pct),
+        #8b5cf6 var(--ba-pct) calc(var(--ba-pct) + var(--qa-pct)),
+        #10b981 calc(var(--ba-pct) + var(--qa-pct)) 100%
+      );
+    }
+    .pie-legend {
+      margin-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 13px;
+    }
+    .pie-legend-item { display: flex; align-items: center; gap: 8px; }
+    .pie-legend-color { width: 12px; height: 12px; border-radius: 3px; }
+
+    /* Filters and Table */
+    .filters {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .filters input, .filters select {
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      font-size: 14px;
+      flex: 1;
+      min-width: 150px;
+    }
+    .filters input::placeholder { color: rgba(255,255,255,0.5); }
+    .filters select option { background: #1e293b; }
+
+    /* Table */
+    .table-wrapper {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th {
+      background: rgba(255,255,255,0.08);
+      padding: 14px 16px;
+      text-align: left;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      vertical-align: top;
+    }
+    tr:hover { background: rgba(255,255,255,0.03); }
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .badge-ba { background: #3b82f6; color: #fff; }
+    .badge-qa { background: #8b5cf6; color: #fff; }
+    .badge-dev { background: #10b981; color: #fff; }
+    
+    .jd-cell { max-width: 350px; position: relative; }
+    .jd-text {
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .jd-text.truncated {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .toggle-jd {
+      color: #f6d365;
+      cursor: pointer;
+      font-size: 12px;
+      margin-top: 4px;
+      display: inline-block;
+      background: none;
+      border: none;
+      text-decoration: underline;
+    }
+    .delete-btn {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #f87171;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: 0.2s;
+    }
+    .delete-btn:hover { background: rgba(239, 68, 68, 0.4); }
+
+    .empty-state {
+      text-align: center;
+      padding: 50px 20px;
+      opacity: 0.6;
+    }
+
+    @media (max-width: 600px) {
+      .charts-row { grid-template-columns: 1fr; }
+      .header { flex-direction: column; align-items: flex-start; }
+      th, td { font-size: 12px; padding: 10px 8px; }
+      .filters input, .filters select { min-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>📊 Job Application Dashboard</h1>
+      <button class="close-btn" id="closeBtn">✕ Close</button>
+    </div>
+
+    <!-- Total Stats -->
+    <h3 style="margin-bottom:10px;opacity:0.7;">Total Applications</h3>
+    <div class="stats-row" id="totalStatsRow">
+      <div class="stat-card"><div class="number" id="totalCount">0</div><div class="label">Total</div></div>
+      <div class="stat-card"><div class="number" id="totalBa">0</div><div class="label">📊 BA</div></div>
+      <div class="stat-card"><div class="number" id="totalQa">0</div><div class="label">🧪 QA</div></div>
+      <div class="stat-card"><div class="number" id="totalDev">0</div><div class="label">💻 Dev</div></div>
+    </div>
+
+    <!-- Today Stats -->
+    <h3 style="margin:20px 0 10px 0;opacity:0.7;">Today's Applications</h3>
+    <div class="stats-row" id="todayStatsRow">
+      <div class="stat-card today"><div class="number" id="todayTotal">0</div><div class="label">Today Total</div></div>
+      <div class="stat-card today"><div class="number" id="todayBa">0</div><div class="label">📊 BA</div></div>
+      <div class="stat-card today"><div class="number" id="todayQa">0</div><div class="label">🧪 QA</div></div>
+      <div class="stat-card today"><div class="number" id="todayDev">0</div><div class="label">💻 Dev</div></div>
+    </div>
+
+    <!-- Charts with pure CSS -->
+    <div class="charts-row">
+      <div class="chart-box">
+        <h3>📈 Last 7 Days</h3>
+        <div class="css-bar-chart" id="dailyBarChart"></div>
+        <div class="legend" id="dailyLegend">
+          <span class="legend-item"><span class="legend-color" style="background:#3b82f6;"></span> BA</span>
+          <span class="legend-item"><span class="legend-color" style="background:#8b5cf6;"></span> QA</span>
+          <span class="legend-item"><span class="legend-color" style="background:#10b981;"></span> Dev</span>
+        </div>
+      </div>
+      <div class="chart-box">
+        <h3>🧩 Profile Distribution (All-time)</h3>
+        <div class="pie-container">
+          <div class="pie-chart" id="pieChart"></div>
+          <div class="pie-legend" id="pieLegend">
+            <div class="pie-legend-item"><span class="pie-legend-color" style="background:#3b82f6;"></span> BA</div>
+            <div class="pie-legend-item"><span class="pie-legend-color" style="background:#8b5cf6;"></span> QA</div>
+            <div class="pie-legend-item"><span class="pie-legend-color" style="background:#10b981;"></span> Dev</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters & Table -->
+    <div class="filters">
+      <input type="text" id="searchInput" placeholder="🔍 Search company or JD...">
+      <select id="profileFilter">
+        <option value="all">All Profiles</option>
+        <option value="ba">BA</option>
+        <option value="qa">QA</option>
+        <option value="dev">Dev</option>
+      </select>
+      <button id="resetDataBtn" style="background:rgba(239,68,68,0.2);border:1px solid rgba(239,68,68,0.4);color:#f87171;padding:10px 18px;border-radius:8px;cursor:pointer;font-weight:600;">🗑 Reset All</button>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Profile</th>
+            <th>Company</th>
+            <th style="width:40%;">Job Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
+      </table>
+    </div>
+    <div id="emptyState" class="empty-state" style="display:none;">
+      <p>No applications logged yet. Start applying!</p>
+    </div>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

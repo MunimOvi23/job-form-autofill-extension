@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Job Form Autofill</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+    body {
+      width: 260px;
+      padding: 16px;
+      background: linear-gradient(135deg, #1e2a4a 0%, #2c3e6b 100%);
+      color: #fff;
+      border-radius: 12px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .header h2 {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      background: linear-gradient(to right, #f6d365, #fda085);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stats, .today-stats {
+      display: flex;
+      gap: 12px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(4px);
+      border-radius: 20px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .today-stats {
+      background: rgba(246, 211, 101, 0.15);
+      border: 1px solid rgba(246, 211, 101, 0.3);
+      margin-top: 6px;
+    }
+    .stats span, .today-stats span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .stats .count, .today-stats .count {
+      color: #f6d365;
+      font-weight: 700;
+    }
+    .today-stats .label {
+      opacity: 0.7;
+    }
+    .profile-group {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      margin-top: 12px;
+    }
+    .profile-btn {
+      flex: 1;
+      padding: 10px 0;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.7);
+    }
+    .profile-btn:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+    .profile-btn.active {
+      background: #f6d365;
+      color: #1e2a4a;
+      box-shadow: 0 4px 12px rgba(246, 211, 101, 0.4);
+    }
+    .profile-btn .icon {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 2px;
+    }
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .scan-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #f6d365, #fda085);
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 15px;
+      color: #1e2a4a;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(246, 211, 101, 0.3);
+    }
+    .scan-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(246, 211, 101, 0.5);
+    }
+    .export-btn {
+      width: 100%;
+      padding: 10px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      font-weight: 500;
+      font-size: 13px;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .export-btn:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    .reset-btn {
+      width: 100%;
+      padding: 10px;
+      background: rgba(255, 107, 107, 0.2);
+      border: 1px solid #ff6b6b;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 13px;
+      color: #ff6b6b;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .reset-btn:hover {
+      background: rgba(255, 107, 107, 0.4);
+      border-color: #ff6b6b;
+    }
+    .dashboard-btn {
+      width: 100%;
+      padding: 10px;
+      background: rgba(246, 211, 101, 0.15);
+      border: 1px solid #f6d365;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 13px;
+      color: #f6d365;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .dashboard-btn:hover {
+      background: rgba(246, 211, 101, 0.3);
+    }
+    .footer {
+      margin-top: 14px;
+      font-size: 10px;
+      text-align: center;
+      opacity: 0.5;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h2>🚀 AutoFill</h2>
+    <div class="stats" id="statsBar">
+      <span>📊 BA: <span class="count" id="countBa">0</span></span>
+      <span>🧪 QA: <span class="count" id="countQa">0</span></span>
+      <span>💻 Dev: <span class="count" id="countDev">0</span></span>
+    </div>
+  </div>
+
+  <!-- Today's Stats -->
+  <div class="today-stats" id="todayStatsBar">
+    <span>Today: <span class="label">BA</span> <span class="count" id="todayBa">0</span></span>
+    <span><span class="label">QA</span> <span class="count" id="todayQa">0</span></span>
+    <span><span class="label">Dev</span> <span class="count" id="todayDev">0</span></span>
+  </div>
+
+  <div class="profile-group">
+    <button class="profile-btn" id="baBtn">
+      <span class="icon">📊</span> BA
+    </button>
+    <button class="profile-btn" id="qaBtn">
+      <span class="icon">🧪</span> QA
+    </button>
+    <button class="profile-btn active" id="devBtn">
+      <span class="icon">💻</span> Dev
+    </button>
+  </div>
+
+  <div class="actions">
+    <button class="scan-btn" id="scanBtn">⚡ Scan & Fill</button>
+    <button class="export-btn" id="exportBtn">📤 Export to CSV</button>
+    <button class="dashboard-btn" id="dashboardBtn">📊 Open Dashboard</button>
+    <button class="reset-btn" id="resetBtn">🗑 Reset All Data</button>
+  </div>
+
+  <div class="footer">v1.0 • Made with ❤️</div>
+  <script src="popup.js"></script>
+</body>
+</html>
