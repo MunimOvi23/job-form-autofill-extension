@@ -20,7 +20,7 @@ Supports **QA**, **Business Analyst**, and **Developer** profiles with one click
 ## Extension Popup
 
 <p align="center">
-<img src="assets/screenshots/popup.png" width="260">
+<img src="assets/screenshots/popup.PNG" width="260">
 </p>
 
 ---
@@ -28,7 +28,7 @@ Supports **QA**, **Business Analyst**, and **Developer** profiles with one click
 ## Dashboard
 
 <p align="center">
-<img src="assets/screenshots/dashboard.png">
+<img src="assets/screenshots/dashboard.PNG">
 </p>
 
 ---
@@ -36,7 +36,7 @@ Supports **QA**, **Business Analyst**, and **Developer** profiles with one click
 ## Application History
 
 <p align="center">
-<img src="assets/screenshots/history.png">
+<img src="assets/screenshots/history.PNG">
 </p>
 
 ---
