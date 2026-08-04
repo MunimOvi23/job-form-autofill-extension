@@ -93,11 +93,23 @@ Resume upload is intentionally manual so the user always has full control over w
 
 ✅ Google Forms
 
-🟡 Greenhouse (In Progress)
+✅ Greenhouse 
 
-🟡 Lever (In Progress)
+✅ Lever 
 
-🟡 Workable (In Progress)
+✅ Workable 
+
+✅ Ashby
+
+✅ SmartRecruiters
+
+✅ ICIMS / Taleo / Oracle
+
+✅ SAP SuccessFactors
+
+✅ Any custom HTML/CSS job page
+
+✅ React / Vue / Angular forms
 
 ---
 
